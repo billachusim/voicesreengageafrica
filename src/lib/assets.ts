@@ -35,9 +35,9 @@ export function resolveAsset(url: string | null | undefined): string {
 }
 
 export const FORMAT_LABEL: Record<string, string> = {
-  video: "Video Story",
-  audio: "Audio Episode",
-  pdf: "PDF Essay",
+  video: "Video Interview",
+  audio: "Audio Story",
+  pdf: "Written Story",
   photo: "Photo Essay",
 };
 

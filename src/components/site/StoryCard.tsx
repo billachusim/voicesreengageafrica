@@ -51,7 +51,7 @@ export function StoryCard({ story }: { story: Story }) {
             <div className="absolute inset-0 bg-linear-to-t from-ink/40 via-transparent to-transparent" />
             {story.format === "video" && (
               <span className="absolute top-3 right-3 bg-ink/80 text-cream text-[10px] font-mono px-2 py-1 backdrop-blur uppercase tracking-widest">
-                Film {formatDuration(story.duration_seconds)}
+                ▶ {formatDuration(story.duration_seconds) || "Interview"}
               </span>
             )}
             {story.format === "audio" && (
