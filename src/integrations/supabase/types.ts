@@ -14,16 +14,205 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contributors: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          id: string
+          name: string
+          region: string | null
+          role: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          region?: string | null
+          role?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          region?: string | null
+          role?: string | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      stories: {
+        Row: {
+          body: string | null
+          chapters: Json | null
+          contributor_id: string | null
+          cover_image_url: string | null
+          created_at: string
+          created_by: string | null
+          duration_seconds: number | null
+          excerpt: string | null
+          featured: boolean
+          format: Database["public"]["Enums"]["story_format"]
+          gallery: Json | null
+          id: string
+          media_url: string | null
+          pdf_page_count: number | null
+          published_at: string | null
+          pull_quote: string | null
+          region: string | null
+          slug: string
+          status: Database["public"]["Enums"]["story_status"]
+          tags: string[]
+          theme: string | null
+          title: string
+          transcript: string | null
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          chapters?: Json | null
+          contributor_id?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_seconds?: number | null
+          excerpt?: string | null
+          featured?: boolean
+          format: Database["public"]["Enums"]["story_format"]
+          gallery?: Json | null
+          id?: string
+          media_url?: string | null
+          pdf_page_count?: number | null
+          published_at?: string | null
+          pull_quote?: string | null
+          region?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["story_status"]
+          tags?: string[]
+          theme?: string | null
+          title: string
+          transcript?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          chapters?: Json | null
+          contributor_id?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_seconds?: number | null
+          excerpt?: string | null
+          featured?: boolean
+          format?: Database["public"]["Enums"]["story_format"]
+          gallery?: Json | null
+          id?: string
+          media_url?: string | null
+          pdf_page_count?: number | null
+          published_at?: string | null
+          pull_quote?: string | null
+          region?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["story_status"]
+          tags?: string[]
+          theme?: string | null
+          title?: string
+          transcript?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stories_contributor_id_fkey"
+            columns: ["contributor_id"]
+            isOneToOne: false
+            referencedRelation: "contributors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      submissions: {
+        Row: {
+          created_at: string
+          email: string
+          format: Database["public"]["Enums"]["story_format"] | null
+          id: string
+          media_link: string | null
+          name: string
+          pitch: string
+          region: string | null
+          reviewed: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          format?: Database["public"]["Enums"]["story_format"] | null
+          id?: string
+          media_link?: string | null
+          name: string
+          pitch: string
+          region?: string | null
+          reviewed?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          format?: Database["public"]["Enums"]["story_format"] | null
+          id?: string
+          media_link?: string | null
+          name?: string
+          pitch?: string
+          region?: string | null
+          reviewed?: boolean
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor"
+      story_format: "video" | "audio" | "pdf" | "photo"
+      story_status: "draft" | "published"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +339,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor"],
+      story_format: ["video", "audio", "pdf", "photo"],
+      story_status: ["draft", "published"],
+    },
   },
 } as const
