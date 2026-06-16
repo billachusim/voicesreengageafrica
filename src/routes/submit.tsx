@@ -10,7 +10,7 @@ export const Route = createFileRoute("/submit")({
   head: () => ({
     meta: [
       { title: "Submit your story — ReEngage Voices" },
-      { name: "description", content: "Pitch a film, audio episode, essay or photo essay to the Voices editors." },
+      { name: "description", content: "Share a video interview, audio story, written essay or photo essay with the Voices editors — on the site or via WhatsApp." },
       { property: "og:title", content: "Submit your story — ReEngage Voices" },
       { property: "og:url", content: "/submit" },
     ],
@@ -54,10 +54,18 @@ function SubmitPage() {
       <Header />
       <section className="px-6 py-20 max-w-3xl mx-auto">
         <p className="eyebrow">Submit a story</p>
-        <h1 className="font-serif text-5xl md:text-7xl font-semibold mt-3 leading-none">Pitch the editors.</h1>
+        <h1 className="font-serif text-5xl md:text-7xl font-semibold mt-3 leading-none">Add your voice.</h1>
         <p className="mt-8 text-ink/70 font-serif text-xl leading-relaxed">
-          Voices commissions and accepts work from contributors across the continent. Tell us what you want to make and where it would live.
+          Share a memory, a craft, a song, a story. Use the form below — or, if you'd rather speak it,
+          send your video, audio, photos or text through the <strong>ReEngage Africa WhatsApp chatbot</strong>.
+          It will walk you through the prompts and forward your submission to our editors.
         </p>
+        <div className="mt-6 inline-flex items-center gap-3 border border-rule px-4 py-3 bg-paper">
+          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink/50">WhatsApp intake</span>
+          <a href="https://wa.me/" className="text-[11px] font-mono uppercase tracking-[0.16em] text-terracotta hover:underline">
+            Open ReEngage chatbot →
+          </a>
+        </div>
 
         {done ? (
           <div className="mt-12 border border-rule p-10 text-center">
@@ -73,7 +81,7 @@ function SubmitPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <Field label="Region" name="region" placeholder="Abuja / Accra / Nairobi / …" />
               <Select label="Format" name="format" options={[
-                ["", "Choose a format"], ["video", "Video"], ["audio", "Audio"], ["pdf", "PDF essay"], ["photo", "Photo essay"],
+                ["", "Choose a format"], ["video", "Video interview"], ["audio", "Audio story"], ["pdf", "Written essay"], ["photo", "Photo essay"],
               ]} />
             </div>
             <Field label="Media link (optional)" name="media_link" type="url" placeholder="Drive / YouTube / Vimeo link" />
