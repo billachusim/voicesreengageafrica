@@ -44,18 +44,24 @@ function HomeBody() {
   const { data: stories } = useSuspenseQuery(storiesQuery);
   const featured = stories.find((s) => s.featured) ?? stories[0];
   const rest = stories.filter((s) => s.id !== featured?.id);
-  const oralTraditions = rest.filter((s) => s.theme === "Oral Traditions").slice(0, 3);
-  const cityLife = rest.filter((s) => ["City Life", "Family", "Work"].includes(s.theme || "")).slice(0, 3);
-  const letters = rest.filter((s) => ["Letters", "Land", "Water"].includes(s.theme || "")).slice(0, 3);
+
+  const clusters: { title: string; subtitle: string }[] = [
+    { title: "Proverbs, Music & Oral Artistry", subtitle: "The talking drum, the praise poem, the riddle told at dusk." },
+    { title: "Everyday Life & Cultural Memory", subtitle: "Markets, kitchens, courtyards — the rhythms of ordinary days." },
+    { title: "Work, Trades & Indigenous Knowledge", subtitle: "Hands, soil, dye-pots and looms. Knowledge passed by doing." },
+    { title: "Community & Spiritual Practice", subtitle: "Family, faith, festivals — how a people gathers." },
+    { title: "Local Cosmology, Myths & Ancestry", subtitle: "Sacred rivers, sky stories, and the people who arrived first." },
+    { title: "Memory, Conflict & Nationhood", subtitle: "Independence, struggle, governance, and the long quiet after." },
+  ];
 
   return (
     <>
       {featured && <Hero story={featured} />}
-
-      {oralTraditions.length > 0 && <Rail title="Oral Traditions" subtitle="Listening to the songs and stories that map the land." stories={oralTraditions} />}
-      {cityLife.length > 0 && <Rail title="The City & Its Work" subtitle="Markets, harbours, neighbourhoods — and the people who keep them moving." stories={cityLife} />}
-      {letters.length > 0 && <Rail title="Letters & Land" subtitle="Essays and field recordings on language, inheritance, and what the water remembers." stories={letters} />}
-
+      {clusters.map((c) => {
+        const rows = rest.filter((s) => s.theme === c.title).slice(0, 3);
+        if (rows.length === 0) return null;
+        return <Rail key={c.title} title={c.title} subtitle={c.subtitle} stories={rows} />;
+      })}
       <ArchiveIndex stories={stories} />
     </>
   );
