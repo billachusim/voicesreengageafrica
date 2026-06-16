@@ -71,6 +71,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@ReEngageAfrica" },
+      { property: "og:title", content: "ReEngage Voices — African heritage stories & lived experience" },
+      { name: "twitter:title", content: "ReEngage Voices — African heritage stories & lived experience" },
+      { property: "og:description", content: "A digital archive of African heritage stories — film, audio, essays and photography from Abuja, Accra, Nairobi and beyond." },
+      { name: "twitter:description", content: "A digital archive of African heritage stories — film, audio, essays and photography from Abuja, Accra, Nairobi and beyond." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/69996c14-c8a8-4f9c-9cee-364adee83f8c/id-preview-b250479a--ce1d5e74-b95c-4537-bf66-31723dbb004f.lovable.app-1781624643061.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/69996c14-c8a8-4f9c-9cee-364adee83f8c/id-preview-b250479a--ce1d5e74-b95c-4537-bf66-31723dbb004f.lovable.app-1781624643061.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
