@@ -5,6 +5,7 @@ import { listPublishedStories } from "@/lib/stories.functions";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { StoryCard } from "@/components/site/StoryCard";
+import { THEMES } from "@/lib/taxonomy";
 import { resolveAsset, FORMAT_LABEL } from "@/lib/assets";
 
 const storiesQuery = queryOptions({
@@ -44,26 +45,55 @@ function HomeBody() {
   const { data: stories } = useSuspenseQuery(storiesQuery);
   const featured = stories.find((s) => s.featured) ?? stories[0];
   const rest = stories.filter((s) => s.id !== featured?.id);
-
-  const clusters: { title: string; subtitle: string }[] = [
-    { title: "Proverbs, Music & Oral Artistry", subtitle: "The talking drum, the praise poem, the riddle told at dusk." },
-    { title: "Everyday Life & Cultural Memory", subtitle: "Markets, kitchens, courtyards — the rhythms of ordinary days." },
-    { title: "Work, Trades & Indigenous Knowledge", subtitle: "Hands, soil, dye-pots and looms. Knowledge passed by doing." },
-    { title: "Community & Spiritual Practice", subtitle: "Family, faith, festivals — how a people gathers." },
-    { title: "Local Cosmology, Myths & Ancestry", subtitle: "Sacred rivers, sky stories, and the people who arrived first." },
-    { title: "Memory, Conflict & Nationhood", subtitle: "Independence, struggle, governance, and the long quiet after." },
-  ];
+  const latest = rest.slice(0, 6);
 
   return (
     <>
       {featured && <Hero story={featured} />}
-      {clusters.map((c) => {
-        const rows = rest.filter((s) => s.theme === c.title).slice(0, 3);
-        if (rows.length === 0) return null;
-        return <Rail key={c.title} title={c.title} subtitle={c.subtitle} stories={rows} />;
-      })}
+      {latest.length > 0 && (
+        <section className="py-24 bg-cream">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-end justify-between mb-10 border-b border-rule pb-5">
+              <div>
+                <p className="eyebrow text-terracotta">Latest</p>
+                <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-tight mt-2">New to the archive</h2>
+              </div>
+              <Link to="/stories" className="text-[11px] font-mono uppercase tracking-[0.18em] text-terracotta hover:underline">
+                View all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latest.map((s) => <StoryCard key={s.id} story={s} />)}
+            </div>
+          </div>
+        </section>
+      )}
+      <TagsStrip />
       <ArchiveIndex stories={stories} />
     </>
+  );
+}
+
+function TagsStrip() {
+  return (
+    <section className="py-20 bg-paper border-y border-rule">
+      <div className="max-w-7xl mx-auto px-6">
+        <p className="eyebrow text-terracotta">Browse by tag</p>
+        <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-tight mt-2 mb-8">Search the archive by what matters to you.</h2>
+        <div className="flex flex-wrap gap-3">
+          {THEMES.map((t) => (
+            <Link
+              key={t}
+              to="/stories"
+              search={{ tag: t } as any}
+              className="px-4 py-2 text-[11px] font-mono uppercase tracking-[0.16em] border border-rule rounded-full hover:bg-ink hover:text-cream hover:border-ink transition-colors"
+            >
+              {t}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
