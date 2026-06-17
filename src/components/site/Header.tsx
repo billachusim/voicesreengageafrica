@@ -9,7 +9,7 @@ export function Header() {
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center gap-2.5">
             <img src={logoMark} alt="ReEngage" width={36} height={36} className="w-9 h-9 rounded-full object-cover" />
-            <span className="font-serif text-xl font-semibold tracking-tight italic">
+            <span className="font-serif text-xl font-semibold tracking-tight">
               ReEngage <span className="text-amber">Voices</span>
             </span>
           </Link>
