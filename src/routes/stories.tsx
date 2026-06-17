@@ -59,9 +59,6 @@ function Body() {
     (region === "all" || s.region === region),
   );
 
-  // Rails per theme (only when "all themes" selected and no search)
-  const showRails = theme === "all" && !query && region === "all";
-
   return (
     <>
       {/* Spotify-style header */}
@@ -76,7 +73,7 @@ function Body() {
         </div>
       </section>
 
-      {/* Sticky format tabs (Spotify-style) */}
+      {/* Sticky format tabs */}
       <div className="sticky top-16 z-40 bg-cream/95 backdrop-blur border-b border-rule">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center gap-3">
           {FORMATS.map((f) => (
@@ -102,8 +99,8 @@ function Body() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 pb-4 flex flex-wrap items-center gap-2">
-          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink/40 mr-1">Cluster</span>
-          <ClusterPill active={theme === "all"} onClick={() => setTheme("all")}>All clusters</ClusterPill>
+          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink/40 mr-1">Tag</span>
+          <ClusterPill active={theme === "all"} onClick={() => setTheme("all")}>All tags</ClusterPill>
           {THEMES.map((t) => (
             <ClusterPill key={t} active={theme === t} onClick={() => setTheme(t)}>{t}</ClusterPill>
           ))}
@@ -117,40 +114,10 @@ function Body() {
         </div>
       </div>
 
-      {/* Body */}
+      {/* Body — flat grid */}
       <section className="px-6 py-14 bg-cream">
         <div className="max-w-7xl mx-auto">
-          {showRails ? (
-            <div className="space-y-16">
-              {THEMES.map((t) => {
-                const rows = searched.filter((s) => s.theme === t);
-                if (rows.length === 0) return null;
-                return (
-                  <div key={t}>
-                    <div className="flex items-end justify-between mb-5 border-b border-rule pb-3">
-                      <div>
-                        <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-terracotta">Cluster</p>
-                        <h2 className="font-serif text-2xl md:text-3xl font-medium mt-1">{t}</h2>
-                      </div>
-                      <button
-                        onClick={() => setTheme(t)}
-                        className="text-[11px] font-mono uppercase tracking-[0.18em] text-ink/60 hover:text-terracotta"
-                      >
-                        See all ({rows.length}) →
-                      </button>
-                    </div>
-                    <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6 scrollbar-thin">
-                      {rows.map((s) => (
-                        <div key={s.id} className="snap-start shrink-0 w-[260px] md:w-[300px]">
-                          <CompactCard story={s} />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <p className="text-center py-24 text-ink/40 font-mono text-sm uppercase tracking-widest">
               No stories match these filters.
             </p>
@@ -185,43 +152,3 @@ function ClusterPill({ active, children, onClick }: { active: boolean; children:
   );
 }
 
-function CompactCard({ story }: { story: any }) {
-  const cover = resolveAsset(story.cover_image_url);
-  const isMedia = story.format === "video" || story.format === "audio";
-  return (
-    <Link to="/stories/$slug" params={{ slug: story.slug }} className="group block">
-      <div className="relative aspect-square overflow-hidden bg-paper border border-rule mb-3">
-        {cover ? (
-          <img src={cover} alt={story.title} loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-        ) : (
-          <div className="absolute inset-0 grid place-items-center p-5">
-            <p className="font-serif italic text-ink/70 text-sm leading-snug text-center">
-              “{story.pull_quote ?? story.excerpt}”
-            </p>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-linear-to-t from-ink/60 via-transparent to-transparent" />
-        <span className="absolute top-2 left-2 bg-cream/95 text-ink text-[9px] font-mono px-2 py-0.5 uppercase tracking-widest">
-          {FORMAT_LABEL[story.format] ?? story.format}
-        </span>
-        {isMedia && (
-          <div className="absolute bottom-2 right-2 size-10 bg-terracotta grid place-items-center rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="size-0 border-y-[6px] border-y-transparent border-l-[10px] border-l-cream ml-0.5" />
-          </div>
-        )}
-        {story.duration_seconds && isMedia && (
-          <span className="absolute bottom-2 left-2 text-cream text-[10px] font-mono tracking-wider">
-            {formatDuration(story.duration_seconds)}
-          </span>
-        )}
-      </div>
-      <h3 className="font-serif text-base font-medium leading-snug group-hover:text-terracotta transition-colors line-clamp-2">
-        {story.title}
-      </h3>
-      <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-ink/45 mt-1.5">
-        {story.contributor?.name ?? "—"} · {story.region ?? "—"}
-      </p>
-    </Link>
-  );
-}
