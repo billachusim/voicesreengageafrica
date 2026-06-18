@@ -7,6 +7,7 @@ import { Footer } from "@/components/site/Footer";
 import { StoryCard } from "@/components/site/StoryCard";
 import { THEMES } from "@/lib/taxonomy";
 import { resolveAsset, FORMAT_LABEL } from "@/lib/assets";
+import heroBg from "@/assets/hero-weaver.jpg";
 
 const storiesQuery = queryOptions({
   queryKey: ["stories", "published"],
@@ -49,7 +50,8 @@ function HomeBody() {
 
   return (
     <>
-      {featured && <Hero story={featured} />}
+      <IntroHero />
+      {featured && <StoryOfTheDay story={featured} />}
       {latest.length > 0 && (
         <section className="py-24 bg-cream">
           <div className="max-w-7xl mx-auto px-6">
@@ -74,6 +76,105 @@ function HomeBody() {
   );
 }
 
+function IntroHero() {
+  return (
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-ink">
+      <img
+        src={heroBg}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-25"
+      />
+      <div className="absolute inset-0 bg-linear-to-b from-ink/70 via-ink/85 to-ink" />
+      <div className="relative max-w-3xl mx-auto px-6 text-center py-24">
+        <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-cream font-semibold leading-[1.05] text-balance">
+          Every voice holds a lifetime of meaning
+        </h1>
+        <p className="text-cream/70 mt-8 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          Welcome to ReEngage Voices — an archive of African heritage stories, oral histories, and lived experiences.
+          Explore interviews, audio recordings, and writings that keep our past alive.
+        </p>
+        <div className="mt-10 flex items-center justify-center gap-4">
+          <Link
+            to="/stories"
+            className="bg-cream text-ink px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors"
+          >
+            Explore stories
+          </Link>
+          <Link
+            to="/submit"
+            className="border border-cream/30 text-cream px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:border-cream hover:bg-cream/10 transition-colors"
+          >
+            Submit your voice
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StoryOfTheDay({ story }: { story: any }) {
+  const cover = resolveAsset(story.cover_image_url);
+  const isPdf = story.format === "pdf";
+
+  return (
+    <section className="py-20 bg-cream">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-tight mb-10">
+          Story of the Day
+        </h2>
+        <Link to="/stories/$slug" params={{ slug: story.slug }} className="group block">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+            <div className="w-full md:w-1/2 lg:w-5/12 aspect-[4/3] overflow-hidden bg-paper border border-rule relative">
+              {isPdf ? (
+                <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                  <div className="border-l-2 border-terracotta pl-4 italic">
+                    <p className="text-lg font-serif leading-snug text-ink/85">
+                      “{story.pull_quote ?? story.excerpt}”
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink/40">
+                    {story.pdf_page_count ?? "—"} pages · PDF
+                  </span>
+                </div>
+              ) : cover ? (
+                <img
+                  src={cover}
+                  alt={story.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="w-full h-full bg-paper" />
+              )}
+              {!isPdf && <div className="absolute inset-0 bg-linear-to-t from-ink/30 via-transparent to-transparent" />}
+            </div>
+            <div className="flex-1 pt-2">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="bg-terracotta text-cream px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.18em]">
+                  {FORMAT_LABEL[story.format] ?? story.format}
+                </span>
+                <span className="text-ink/50 text-[10px] font-mono uppercase tracking-[0.2em]">
+                  {story.region}
+                </span>
+              </div>
+              <h3 className="font-serif text-3xl md:text-4xl font-medium group-hover:text-terracotta transition-colors leading-tight">
+                {story.title}
+              </h3>
+              {story.excerpt && (
+                <p className="text-ink/60 mt-4 leading-relaxed max-w-lg">{story.excerpt}</p>
+              )}
+              {story.contributor && (
+                <p className="text-[11px] font-mono uppercase tracking-[0.14em] text-ink/40 mt-6">
+                  By {story.contributor.name}
+                </p>
+              )}
+            </div>
+          </div>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function TagsStrip() {
   return (
     <section className="py-20 bg-paper border-y border-rule">
@@ -91,70 +192,6 @@ function TagsStrip() {
               {t}
             </Link>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Hero({ story }: { story: any }) {
-  const cover = resolveAsset(story.cover_image_url);
-  return (
-    <section className="relative h-[92vh] flex flex-col justify-end overflow-hidden bg-ink">
-      {cover && (
-        <img src={cover} alt="" width={1920} height={1080}
-          className="absolute inset-0 w-full h-full object-cover opacity-90" />
-      )}
-      <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/40 to-transparent" />
-      <div className="relative max-w-7xl mx-auto px-6 pb-20 w-full">
-        <div className="flex items-center gap-3 mb-5">
-          <span className="bg-terracotta text-cream px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.18em]">
-            {FORMAT_LABEL[story.format] ?? story.format}
-          </span>
-          <span className="text-cream/80 text-[10px] font-mono uppercase tracking-[0.2em]">
-            {story.region}
-          </span>
-        </div>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-cream font-semibold leading-[0.95] text-balance max-w-[18ch]">
-          {story.title}
-        </h1>
-        {story.excerpt && (
-          <p className="text-cream/75 mt-6 max-w-xl text-lg leading-relaxed">{story.excerpt}</p>
-        )}
-        <div className="flex items-center gap-6 mt-8">
-          {story.contributor && (
-            <div className="flex items-center gap-3">
-              <div className="h-px w-10 bg-terracotta" />
-              <span className="text-cream/90 text-[11px] font-mono uppercase tracking-[0.18em]">
-                By {story.contributor.name}
-              </span>
-            </div>
-          )}
-          <Link to="/stories/$slug" params={{ slug: story.slug }}
-            className="bg-cream text-ink px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors">
-            Enter the story
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Rail({ title, subtitle, stories }: { title: string; subtitle: string; stories: any[] }) {
-  return (
-    <section className="py-24 bg-cream">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-end justify-between mb-10 border-b border-rule pb-5">
-          <div>
-            <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-tight">{title}</h2>
-            <p className="text-sm text-ink/55 mt-2 max-w-md">{subtitle}</p>
-          </div>
-          <Link to="/stories" className="text-[11px] font-mono uppercase tracking-[0.18em] text-terracotta hover:underline">
-            View all →
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stories.map((s) => <StoryCard key={s.id} story={s} />)}
         </div>
       </div>
     </section>
