@@ -54,7 +54,7 @@ function AuthPage() {
             <label className="eyebrow block mb-1.5">Password</label>
             <input name="password" type="password" required minLength={6} className="w-full bg-cream border border-rule px-3 py-2 focus:outline-none focus:border-ink" />
           </div>
-          <button disabled={busy} className="w-full bg-ink text-cream py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest disabled:opacity-50">
+          <button disabled={busy} className="w-full bg-ink text-cream py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest disabled:opacity-50 rounded-full">
             {busy ? "…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
           <button type="button" onClick={() => setMode(mode === "signin" ? "signup" : "signin")}

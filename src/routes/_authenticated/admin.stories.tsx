@@ -32,7 +32,7 @@ function StoriesAdmin() {
           <p className="eyebrow">Stories</p>
           <h1 className="font-serif text-4xl mt-2">All stories</h1>
         </div>
-        <button onClick={() => setCreating(true)} className="bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest">+ New story</button>
+        <button onClick={() => setCreating(true)} className="bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest rounded-full">+ New story</button>
       </div>
 
       <table className="w-full border border-rule">
@@ -144,7 +144,7 @@ function StoryEditor({ story, onClose }: any) {
           <Area label='Gallery JSON: [{"url":"…","caption":"…","credit":"…"}]' name="gallery" def={story?.gallery ? JSON.stringify(story.gallery, null, 2) : ""} full rows={3} />
           <label className="col-span-2 flex items-center gap-2 text-sm"><input type="checkbox" name="featured" defaultChecked={story?.featured} /> Featured on home</label>
         </div>
-        <button disabled={busy} className="mt-6 bg-ink text-cream px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em]">{busy ? "Saving…" : "Save story"}</button>
+        <button disabled={busy} className="mt-6 bg-ink text-cream px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em] rounded-full">{busy ? "Saving…" : "Save story"}</button>
       </form>
     </div>
   );

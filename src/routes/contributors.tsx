@@ -42,7 +42,7 @@ function Body() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {data.map((c) => (
             <Link key={c.id} to="/contributors/$slug" params={{ slug: c.slug }} className="group block">
-              <div className="aspect-square overflow-hidden border border-rule mb-4">
+              <div className="aspect-square overflow-hidden border border-rule mb-4 rounded-xl">
                 {c.avatar_url && <img src={resolveAsset(c.avatar_url)} alt={c.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />}
               </div>
               <p className="eyebrow">{c.region ?? "—"}</p>

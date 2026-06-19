@@ -39,7 +39,7 @@ export const Route = createFileRoute("/contributors/$slug")({
       <Header />
       <div className="max-w-3xl mx-auto px-6 py-32 text-center">
         <h1 className="font-serif text-5xl">Contributor not found</h1>
-        <Link to="/contributors" className="inline-block mt-8 bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em]">All contributors</Link>
+        <Link to="/contributors" className="inline-block mt-8 bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] rounded-full">All contributors</Link>
       </div>
       <Footer />
     </div>
@@ -56,7 +56,7 @@ function Body() {
       <section className="px-6 py-20 border-b border-rule">
         <div className="max-w-5xl mx-auto grid md:grid-cols-12 gap-10 items-end">
           {c.avatar_url && (
-            <div className="md:col-span-4 aspect-square overflow-hidden border border-rule">
+            <div className="md:col-span-4 aspect-square overflow-hidden border border-rule rounded-xl">
               <img src={resolveAsset(c.avatar_url)} alt={c.name} className="w-full h-full object-cover" />
             </div>
           )}

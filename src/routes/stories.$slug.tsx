@@ -53,7 +53,7 @@ export const Route = createFileRoute("/stories/$slug")({
       <div className="max-w-3xl mx-auto px-6 py-32 text-center">
         <p className="eyebrow">Not in the archive</p>
         <h1 className="font-serif text-5xl mt-3">Story not found</h1>
-        <Link to="/stories" className="inline-block mt-8 bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em]">Back to archive</Link>
+        <Link to="/stories" className="inline-block mt-8 bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] rounded-full">Back to archive</Link>
       </div>
       <Footer />
     </div>
@@ -153,7 +153,7 @@ function VideoReader({ src, cover, duration, chapters, transcript }: any) {
   const external = src && /^https?:/.test(src);
   return (
     <div className="space-y-8">
-      <div className="aspect-video bg-ink relative overflow-hidden">
+      <div className="aspect-video bg-ink relative overflow-hidden rounded-xl">
         {external ? (
           <video controls poster={cover} className="w-full h-full">
             <source src={src} />
@@ -191,7 +191,7 @@ function AudioReader({ src, cover, duration, chapters, transcript }: any) {
   return (
     <div className="bg-paper border border-rule p-8 md:p-12">
       <div className="flex flex-col md:flex-row gap-8 items-start">
-        {cover && <img src={cover} alt="" width={300} height={300} loading="lazy" className="w-48 h-48 object-cover border border-rule" />}
+        {cover && <img src={cover} alt="" width={300} height={300} loading="lazy" className="w-48 h-48 object-cover border border-rule rounded-xl" />}
         <div className="flex-1 w-full">
           <p className="eyebrow mb-3">Audio Episode</p>
           <div className="h-16 w-full flex items-end gap-1 mb-4">
@@ -240,7 +240,7 @@ function PdfReader({ src, pullQuote, pages, cover }: any) {
           <p className="font-serif italic text-3xl leading-snug text-ink">“{pullQuote}”</p>
         </blockquote>
       )}
-      <div className="border border-rule bg-paper aspect-[4/3] relative overflow-hidden">
+      <div className="border border-rule bg-paper aspect-[4/3] relative overflow-hidden rounded-xl">
         {external ? (
           <iframe src={src} title="Essay PDF" className="w-full h-full" />
         ) : (
@@ -256,7 +256,7 @@ function PdfReader({ src, pullQuote, pages, cover }: any) {
       <div className="flex items-center gap-4">
         <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-ink/50">{pages ?? "—"} pages</span>
         {external && (
-          <a href={src} target="_blank" rel="noreferrer" className="bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest">
+          <a href={src} target="_blank" rel="noreferrer" className="bg-ink text-cream px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest rounded-full">
             Download PDF ↓
           </a>
         )}
@@ -276,7 +276,7 @@ function PhotoReader({ gallery, cover }: any) {
         return (
           <figure key={i} className={i % 2 === 0 ? "" : "md:pl-16"}>
             <img src={url} alt={g.caption ?? ""} loading="lazy"
-              className="w-full h-auto border border-rule" />
+              className="w-full h-auto border border-rule rounded-xl" />
             {(g.caption || g.credit) && (
               <figcaption className="mt-3 flex justify-between text-[11px] font-mono uppercase tracking-[0.16em] text-ink/50">
                 <span>{g.caption}</span>
