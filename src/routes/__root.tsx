@@ -122,6 +122,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <Toaster theme="light" position="top-center" />
+      <WhatsAppFloat />
     </QueryClientProvider>
   );
 }
