@@ -96,13 +96,13 @@ function IntroHero() {
         <div className="mt-10 flex items-center justify-center gap-4">
           <Link
             to="/stories"
-            className="bg-cream text-ink px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors"
+            className="bg-cream text-ink px-6 py-3 rounded-full text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors"
           >
             Explore stories
           </Link>
           <Link
             to="/submit"
-            className="border border-cream/30 text-cream px-6 py-3 text-[11px] font-mono uppercase tracking-[0.18em] hover:border-cream hover:bg-cream/10 transition-colors"
+            className="border border-cream/30 text-cream px-6 py-3 rounded-full text-[11px] font-mono uppercase tracking-[0.18em] hover:border-cream hover:bg-cream/10 transition-colors"
           >
             Submit your voice
           </Link>
