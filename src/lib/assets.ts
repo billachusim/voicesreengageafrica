@@ -12,6 +12,7 @@ import adewale from "@/assets/contrib-adewale.jpg";
 import amaka from "@/assets/contrib-amaka.jpg";
 import chisom from "@/assets/contrib-chisom.jpg";
 import coverKayode from "@/assets/cover-kayode.jpg";
+import contribKayode from "@/assets/contrib-kayode.jpg";
 
 const MAP: Record<string, string> = {
   "hero-weaver.jpg": hero,
@@ -25,6 +26,7 @@ const MAP: Record<string, string> = {
   "contrib-adewale.jpg": adewale,
   "contrib-amaka.jpg": amaka,
   "contrib-chisom.jpg": chisom,
+  "contrib-kayode.jpg": contribKayode,
 };
 
 export function resolveAsset(url: string | null | undefined): string {

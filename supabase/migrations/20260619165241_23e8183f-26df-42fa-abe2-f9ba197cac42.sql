@@ -1,0 +1,1 @@
+UPDATE public.contributors SET avatar_url = '/src-asset/contrib-kayode.jpg' WHERE slug = 'kayode-garricks';
