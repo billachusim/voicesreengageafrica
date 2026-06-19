@@ -150,7 +150,7 @@ function Body() {
 }
 
 function VideoReader({ src, cover, duration, chapters, transcript }: any) {
-  const external = src && /^https?:/.test(src);
+  const playable = !!src && (/^https?:/.test(src) || src.startsWith("/"));
   return (
     <div className="space-y-8">
       <div className="aspect-video bg-ink relative overflow-hidden rounded-xl">
