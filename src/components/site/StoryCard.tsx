@@ -24,7 +24,7 @@ export function StoryCard({ story }: { story: Story }) {
       params={{ slug: story.slug }}
       className="group block"
     >
-      <div className="relative aspect-[4/5] overflow-hidden mb-4 bg-paper border border-rule">
+      <div className="relative aspect-[4/5] overflow-hidden mb-4 bg-paper border border-rule rounded-xl">
         {isPdf ? (
           <div className="absolute inset-0 p-8 flex flex-col justify-between">
             <div className="border-l-2 border-terracotta pl-4 italic">

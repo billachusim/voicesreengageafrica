@@ -124,7 +124,7 @@ function StoryOfTheDay({ story }: { story: any }) {
         </h2>
         <Link to="/stories/$slug" params={{ slug: story.slug }} className="group block">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-            <div className="w-full md:w-1/2 lg:w-5/12 aspect-[4/3] overflow-hidden bg-paper border border-rule relative">
+            <div className="w-full md:w-1/2 lg:w-5/12 aspect-[4/3] overflow-hidden bg-paper border border-rule relative rounded-xl">
               {isPdf ? (
                 <div className="absolute inset-0 p-8 flex flex-col justify-between">
                   <div className="border-l-2 border-terracotta pl-4 italic">
@@ -149,7 +149,7 @@ function StoryOfTheDay({ story }: { story: any }) {
             </div>
             <div className="flex-1 pt-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-terracotta text-cream px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.18em]">
+                <span className="bg-terracotta text-cream px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.18em] rounded-full">
                   {FORMAT_LABEL[story.format] ?? story.format}
                 </span>
                 <span className="text-ink/50 text-[10px] font-mono uppercase tracking-[0.2em]">
@@ -207,7 +207,7 @@ function ArchiveIndex({ stories }: { stories: any[] }) {
             <p className="eyebrow text-terracotta">The Voices Archive</p>
             <h2 className="font-serif text-4xl md:text-5xl text-cream font-medium mt-2">Every story, every format.</h2>
           </div>
-          <Link to="/stories" className="bg-cream text-ink px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors w-fit">
+          <Link to="/stories" className="bg-cream text-ink px-5 py-2.5 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-terracotta hover:text-cream transition-colors w-fit rounded-full">
             Browse the archive →
           </Link>
         </div>

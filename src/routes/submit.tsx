@@ -72,7 +72,7 @@ function SubmitPage() {
             <p className="eyebrow">Received</p>
             <h2 className="font-serif text-3xl mt-3">Thank you.</h2>
             <p className="text-ink/60 mt-2">An editor will be in touch within two weeks.</p>
-            <button onClick={() => setDone(false)} className="mt-6 text-[11px] font-mono uppercase tracking-[0.18em] text-terracotta">Submit another</button>
+            <button onClick={() => setDone(false)} className="mt-6 text-[11px] font-mono uppercase tracking-[0.18em] text-terracotta rounded-full">Submit another</button>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-12 space-y-6">
@@ -90,7 +90,7 @@ function SubmitPage() {
               <textarea name="pitch" rows={8} required minLength={20} maxLength={5000}
                 className="w-full bg-paper border border-rule p-4 font-serif text-lg leading-relaxed focus:outline-none focus:border-ink resize-y" />
             </div>
-            <button disabled={busy} className="bg-ink text-cream px-8 py-4 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest disabled:opacity-50">
+            <button disabled={busy} className="bg-ink text-cream px-8 py-4 text-[11px] font-mono uppercase tracking-[0.18em] hover:bg-forest disabled:opacity-50 rounded-full">
               {busy ? "Sending…" : "Send pitch"}
             </button>
           </form>
