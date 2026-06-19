@@ -21,7 +21,7 @@ export function Header() {
         </div>
         <Link
           to="/submit"
-          className="bg-ink text-cream px-4 py-2 text-[11px] font-mono uppercase tracking-[0.16em] hover:bg-amber hover:text-ink transition-colors"
+          className="bg-ink text-cream px-5 py-2 rounded-full text-[11px] font-mono uppercase tracking-[0.16em] hover:bg-amber hover:text-ink transition-colors"
         >
           Submit Story
         </Link>
