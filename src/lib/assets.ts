@@ -26,6 +26,7 @@ const MAP: Record<string, string> = {
   "contrib-adewale.jpg": adewale,
   "contrib-amaka.jpg": amaka,
   "contrib-chisom.jpg": chisom,
+  "contrib-kayode.jpg": contribKayode,
 };
 
 export function resolveAsset(url: string | null | undefined): string {
