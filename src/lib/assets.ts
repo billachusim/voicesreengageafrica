@@ -11,6 +11,7 @@ import ama from "@/assets/contrib-ama.jpg";
 import adewale from "@/assets/contrib-adewale.jpg";
 import amaka from "@/assets/contrib-amaka.jpg";
 import chisom from "@/assets/contrib-chisom.jpg";
+import coverKayode from "@/assets/cover-kayode.jpg";
 
 const MAP: Record<string, string> = {
   "hero-weaver.jpg": hero,
@@ -19,6 +20,7 @@ const MAP: Record<string, string> = {
   "cover-nairobi.jpg": nairobi,
   "cover-archive.jpg": archive,
   "cover-delta.jpg": delta,
+  "cover-kayode.jpg": coverKayode,
   "contrib-ama.jpg": ama,
   "contrib-adewale.jpg": adewale,
   "contrib-amaka.jpg": amaka,
