@@ -10,7 +10,7 @@ import { resolveAsset, FORMAT_LABEL, formatDuration } from "@/lib/assets";
 
 const q = queryOptions({ queryKey: ["stories", "published"], queryFn: () => listPublishedStories() });
 
-export const Route = createFileRoute("/stories")({
+export const Route = createFileRoute("/stories/")({
   head: () => ({
     meta: [
       { title: "Browse — ReEngage Voices" },
