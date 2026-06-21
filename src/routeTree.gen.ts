@@ -10,13 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SubmitRouteImport } from './routes/submit'
-import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ContributorsRouteImport } from './routes/contributors'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
 import { Route as StoriesSlugRouteImport } from './routes/stories.$slug'
 import { Route as ContributorsSlugRouteImport } from './routes/contributors.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -27,11 +27,6 @@ import { Route as AuthenticatedAdminContributorsRouteImport } from './routes/_au
 const SubmitRoute = SubmitRouteImport.update({
   id: '/submit',
   path: '/submit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoriesRoute = StoriesRouteImport.update({
-  id: '/stories',
-  path: '/stories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -63,10 +58,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/stories/',
+  path: '/stories/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StoriesSlugRoute = StoriesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => StoriesRoute,
+  id: '/stories/$slug',
+  path: '/stories/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ContributorsSlugRoute = ContributorsSlugRouteImport.update({
   id: '/$slug',
@@ -103,10 +103,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contributors': typeof ContributorsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/stories': typeof StoriesRouteWithChildren
   '/submit': typeof SubmitRoute
   '/contributors/$slug': typeof ContributorsSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
+  '/stories/': typeof StoriesIndexRoute
   '/admin/contributors': typeof AuthenticatedAdminContributorsRoute
   '/admin/stories': typeof AuthenticatedAdminStoriesRoute
   '/admin/submissions': typeof AuthenticatedAdminSubmissionsRoute
@@ -118,10 +118,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contributors': typeof ContributorsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/stories': typeof StoriesRouteWithChildren
   '/submit': typeof SubmitRoute
   '/contributors/$slug': typeof ContributorsSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
+  '/stories': typeof StoriesIndexRoute
   '/admin/contributors': typeof AuthenticatedAdminContributorsRoute
   '/admin/stories': typeof AuthenticatedAdminStoriesRoute
   '/admin/submissions': typeof AuthenticatedAdminSubmissionsRoute
@@ -135,10 +135,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contributors': typeof ContributorsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/stories': typeof StoriesRouteWithChildren
   '/submit': typeof SubmitRoute
   '/contributors/$slug': typeof ContributorsSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
+  '/stories/': typeof StoriesIndexRoute
   '/_authenticated/admin/contributors': typeof AuthenticatedAdminContributorsRoute
   '/_authenticated/admin/stories': typeof AuthenticatedAdminStoriesRoute
   '/_authenticated/admin/submissions': typeof AuthenticatedAdminSubmissionsRoute
@@ -152,10 +152,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contributors'
     | '/sitemap.xml'
-    | '/stories'
     | '/submit'
     | '/contributors/$slug'
     | '/stories/$slug'
+    | '/stories/'
     | '/admin/contributors'
     | '/admin/stories'
     | '/admin/submissions'
@@ -167,10 +167,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contributors'
     | '/sitemap.xml'
-    | '/stories'
     | '/submit'
     | '/contributors/$slug'
     | '/stories/$slug'
+    | '/stories'
     | '/admin/contributors'
     | '/admin/stories'
     | '/admin/submissions'
@@ -183,10 +183,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contributors'
     | '/sitemap.xml'
-    | '/stories'
     | '/submit'
     | '/contributors/$slug'
     | '/stories/$slug'
+    | '/stories/'
     | '/_authenticated/admin/contributors'
     | '/_authenticated/admin/stories'
     | '/_authenticated/admin/submissions'
@@ -200,8 +200,9 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContributorsRoute: typeof ContributorsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  StoriesRoute: typeof StoriesRouteWithChildren
   SubmitRoute: typeof SubmitRoute
+  StoriesSlugRoute: typeof StoriesSlugRoute
+  StoriesIndexRoute: typeof StoriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -211,13 +212,6 @@ declare module '@tanstack/react-router' {
       path: '/submit'
       fullPath: '/submit'
       preLoaderRoute: typeof SubmitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stories': {
-      id: '/stories'
-      path: '/stories'
-      fullPath: '/stories'
-      preLoaderRoute: typeof StoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -262,12 +256,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/': {
+      id: '/stories/'
+      path: '/stories'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stories/$slug': {
       id: '/stories/$slug'
-      path: '/$slug'
+      path: '/stories/$slug'
       fullPath: '/stories/$slug'
       preLoaderRoute: typeof StoriesSlugRouteImport
-      parentRoute: typeof StoriesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/contributors/$slug': {
       id: '/contributors/$slug'
@@ -336,17 +337,6 @@ const ContributorsRouteWithChildren = ContributorsRoute._addFileChildren(
   ContributorsRouteChildren,
 )
 
-interface StoriesRouteChildren {
-  StoriesSlugRoute: typeof StoriesSlugRoute
-}
-
-const StoriesRouteChildren: StoriesRouteChildren = {
-  StoriesSlugRoute: StoriesSlugRoute,
-}
-
-const StoriesRouteWithChildren =
-  StoriesRoute._addFileChildren(StoriesRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -354,8 +344,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContributorsRoute: ContributorsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  StoriesRoute: StoriesRouteWithChildren,
   SubmitRoute: SubmitRoute,
+  StoriesSlugRoute: StoriesSlugRoute,
+  StoriesIndexRoute: StoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
