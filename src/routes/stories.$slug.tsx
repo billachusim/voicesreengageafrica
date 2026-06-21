@@ -150,13 +150,14 @@ function Body() {
 }
 
 function VideoReader({ src, cover, duration, chapters, transcript }: any) {
-  const external = src && /^https?:/.test(src);
+  const playable = Boolean(src);
   return (
     <div className="space-y-8">
       <div className="aspect-video bg-ink relative overflow-hidden rounded-xl">
-        {external ? (
-          <video controls poster={cover} className="w-full h-full">
+        {playable ? (
+          <video controls preload="metadata" poster={cover} className="w-full h-full">
             <source src={src} />
+            Your browser does not support the video tag.
           </video>
         ) : (
           <img src={cover} alt="" className="w-full h-full object-cover" loading="lazy" />
