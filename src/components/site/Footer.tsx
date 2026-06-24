@@ -32,7 +32,7 @@ export function Footer() {
             <li><a href="https://reengageafrica.com" className="hover:text-amber transition-colors">ReEngage Africa</a></li>
           </ul>
         </div>
-        <div className="md:col-span-3 text-cream/40 text-[10px] font-mono uppercase tracking-[0.2em] leading-relaxed">
+        <div className="md:col-span-3 text-cream/40 text-[10px] font-mono tracking-[0.12em] leading-relaxed">
           © {new Date().getFullYear()} ReEngage Africa<br />
           voices.reengageafrica.com
         </div>
