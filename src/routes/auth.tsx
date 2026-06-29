@@ -43,7 +43,7 @@ function AuthPage() {
   return (
     <div className="min-h-screen bg-cream grid place-items-center px-6">
       <div className="w-full max-w-sm">
-        <Link to="/" className="font-serif text-2xl italic block text-center mb-2">ReEngage <span className="text-terracotta">Voices</span></Link>
+        <Link to="/" className="font-sans text-2xl font-semibold not-italic block text-center mb-2">ReEngage <span className="text-terracotta">Voices</span></Link>
         <p className="eyebrow text-center mb-8">Editor sign in</p>
         <form onSubmit={onSubmit} className="space-y-4 border border-rule p-8 bg-paper">
           <div>
