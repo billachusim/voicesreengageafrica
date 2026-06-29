@@ -9,7 +9,7 @@ export function Footer() {
         <div className="md:col-span-5">
           <div className="flex items-center gap-3 mb-4">
             <img src={logoMark} alt="" width={36} height={36} className="w-9 h-9 rounded-full object-cover" loading="lazy" />
-            <h3 className="font-serif text-2xl italic">
+            <h3 className="font-serif text-2xl">
               ReEngage <span className="text-amber">Voices</span>
             </h3>
           </div>
